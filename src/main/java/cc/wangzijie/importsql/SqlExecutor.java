@@ -26,7 +26,6 @@ public class SqlExecutor {
                 continue;
             }
             processFile(file);
-            break;
         }
     }
 
