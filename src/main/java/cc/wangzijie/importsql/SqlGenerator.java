@@ -24,20 +24,20 @@ import java.util.Scanner;
 
 public class SqlGenerator {
 
-    private static int MAX_WBS = 67;
-    private static String folderPath = "D:/ImportData/CG-D031(26到67列)";
+    private static int MAX_WBS = 91;
+    private static String folderPath = "D:/ImportData/HW-D010_02to091";
     private static String outputPath;
 
     public static void main( String[] args ) {
-        Scanner input = new Scanner( System.in );
-        System.out.println( "请输入待执行XlSX所在目录的完整路径：" );
-        System.out.println( "例如：\"D:/ImportData/CG-D031(26到67列)\"" );
-        System.out.print( "XLSX目录：" );
-        folderPath = input.nextLine();
-        System.out.println( "请输入最大的WBS号：" );
-        System.out.println( "例如：\"67\"" );
-        System.out.print( "最大的WBS号：" );
-        MAX_WBS = input.nextInt();
+//        Scanner input = new Scanner( System.in );
+//        System.out.println( "请输入待执行XlSX所在目录的完整路径：" );
+//        System.out.println( "例如：\"D:/ImportData/CG-D031(26到67列)\"" );
+//        System.out.print( "XLSX目录：" );
+//        folderPath = input.nextLine();
+//        System.out.println( "请输入最大的WBS号：" );
+//        System.out.println( "例如：\"67\"" );
+//        System.out.print( "最大的WBS号：" );
+//        MAX_WBS = input.nextInt();
         outputPath = folderPath + "/" + System.currentTimeMillis();
         File folder = new File( folderPath );
         File[] files = folder.listFiles();
