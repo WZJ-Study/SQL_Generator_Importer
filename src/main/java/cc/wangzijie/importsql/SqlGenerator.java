@@ -153,36 +153,38 @@ public class SqlGenerator {
     }
 
     private static void printToFile(File originFile, List<String> wbsList, List<List<String>> listOfSqlList) {
-        File outputFile;
-        try {
-            String outputFileName =  originFile.getName() + ".sql";
-            outputFile = new File(outputPath + "/" + outputFileName);
-            outputFile.getParentFile().mkdirs();
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            return;
-        }
+        for (int i = 0; i < wbsList.size(); i++) {
+            String wbs = wbsList.get( i );
+            List<String> sqlList = listOfSqlList.get( i );
 
-        try (PrintStream printStream = new PrintStream( new FileOutputStream( outputFile, false), true )) {
-            for (int i = 0; i < wbsList.size(); i++) {
-                String wbs = wbsList.get( i );
-                List<String> sqlList = listOfSqlList.get( i );
-
-                printStream.println( "-- [ " + wbs + " ] ======== BEGIN ========" );
-                int ctr = 0;
-                for (String sql : sqlList) {
-                    ctr++;
-                    printStream.println( sql );
-                    if (ctr >= 1000) {
-                        ctr = 0;
-                        printStream.println( "commit;" );
-                    }
-                }
-                printStream.println( "commit;" );
-                printStream.println( "-- [ " + wbs + " ] ======== END ========\n\n" );
+            File outputFile;
+            try {
+                String outputFileName =  originFile.getName() + "/" + wbs + ".sql";
+                outputFile = new File(outputPath + "/" + outputFileName);
+                outputFile.getParentFile().mkdirs();
+            } catch ( Exception e ) {
+                e.printStackTrace();
+                return;
             }
-        } catch ( Exception e ) {
-            e.printStackTrace();
+
+            try (PrintStream printStream = new PrintStream( new FileOutputStream( outputFile, false), true )) {
+//                    printStream.println( "-- [ " + wbs + " ] ======== BEGIN ========" );
+//                    int ctr = 0;
+                    for (String sql : sqlList) {
+//                        ctr++;
+                        printStream.println( sql );
+//                        if (ctr >= 1000) {
+//                            ctr = 0;
+//                            printStream.println( "commit;" );
+//                        }
+                    }
+//                    printStream.println( "commit;" );
+//                    printStream.println( "-- [ " + wbs + " ] ======== END ========\n\n" );
+
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+
         }
     }
 
