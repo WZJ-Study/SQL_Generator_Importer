@@ -24,8 +24,9 @@ import java.util.Scanner;
 
 public class SqlGenerator {
 
-    private static int MAX_WBS = 91;
-    private static String folderPath = "D:/ImportData/HW-D010_02to091";
+    private static int MIN_WBS = 01;
+    private static int MAX_WBS = 45;
+    private static String folderPath = "C:\\Users\\wzj_s\\Desktop\\GT-C057";
     private static String outputPath;
 
     public static void main( String[] args ) {
@@ -143,8 +144,14 @@ public class SqlGenerator {
                              + " 'system',"
                              + " '0',"
                              + " substr('" + colB + "',0,7)"
-                             + " from dual where not exists"
-                             + " ( select 1 from DO_QMS.T2_BAS_WBS_BOM where \"PSPID\"='" + colB + "' and \"MATNO\"='" + colC + "' and \"IDNRK\"='" + colF + "' );";
+                             + " from dual where not exists ("
+                             + " select 1 from DO_QMS.T2_BAS_WBS_BOM"
+                             + " where \"PSPID\"='" + colB
+                             + "' and \"MATNO\"='" + colC
+                             + "' and \"IDNRK\"='" + colF
+                             + "' and \"SORTF\"='" + colJ
+                             + "' and \"MATNR\"='" + colA
+                             + "' );";
                 sqlList.add( sql );
             }
             listOfSqlList.add( sqlList );
@@ -301,6 +308,9 @@ public class SqlGenerator {
         String wbsSuffix = fileName.substring( 13, 16 );
         String startWbs = fileName.substring( 10, 13 );
         int iStartWbs = Integer.valueOf( startWbs );
+        if (MIN_WBS > 0) {
+            iStartWbs = MIN_WBS;
+        }
         //System.out.println( "wbsPrefix = " + wbsPrefix );
         //System.out.println( "wbsSuffix = " + wbsSuffix );
         List<String> wbsList = new LinkedList<>();
