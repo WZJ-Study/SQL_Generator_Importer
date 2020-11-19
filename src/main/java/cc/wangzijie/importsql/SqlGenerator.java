@@ -20,13 +20,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class SqlGenerator {
 
-    private static int MIN_WBS = 01;
-    private static int MAX_WBS = 45;
-    private static String folderPath = "C:\\Users\\wzj_s\\Desktop\\GT-C057";
+    private final static int MIN_WBS = 1;
+    private final static int MAX_WBS = 6;
+    private final static String FOLDER_PATH = "D:\\BOM\\GT-C072(1至6列)";
     private static String outputPath;
 
     public static void main( String[] args ) {
@@ -39,8 +38,8 @@ public class SqlGenerator {
 //        System.out.println( "例如：\"67\"" );
 //        System.out.print( "最大的WBS号：" );
 //        MAX_WBS = input.nextInt();
-        outputPath = folderPath + "/" + System.currentTimeMillis();
-        File folder = new File( folderPath );
+        outputPath = FOLDER_PATH + "/" + System.currentTimeMillis( );
+        File folder = new File( FOLDER_PATH );
         File[] files = folder.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
@@ -127,9 +126,9 @@ public class SqlGenerator {
                              + " \"PROJECT_CODE\")"
                              + " SELECT"
                              + " DO_QMS.T2_BAS_WBS_BOM_SEQ.NEXTVAL,"
-                             + " '" + colA + "',"
-                             + " '" + colB + "',"
                              + " '" + colC + "',"
+                             + " '" + colB + "',"
+                             + " '" + colA + "',"
                              + " '" + colD + "',"
                              + " '" + colE + "',"
                              + " '" + colF + "',"
@@ -147,10 +146,10 @@ public class SqlGenerator {
                              + " from dual where not exists ("
                              + " select 1 from DO_QMS.T2_BAS_WBS_BOM"
                              + " where \"PSPID\"='" + colB
-                             + "' and \"MATNO\"='" + colC
+                             + "' and \"MATNO\"='" + colA
                              + "' and \"IDNRK\"='" + colF
-                             + "' and \"SORTF\"='" + colJ
-                             + "' and \"MATNR\"='" + colA
+                             + "' and UPPER(\"SORTF\")='" + colJ
+                             + "' and \"MATNR\"='" + colC
                              + "' );";
                 sqlList.add( sql );
             }
